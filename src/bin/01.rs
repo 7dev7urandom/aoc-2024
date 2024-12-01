@@ -33,10 +33,14 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let (first_numbers, second_numbers) = get_sorted_lists(input);
+    let mut second_map = std::collections::HashMap::new();
+    for number in second_numbers.iter() {
+        let count = second_map.entry(*number).or_insert(0);
+        *count += 1;
+    }
     let mut total = 0;
     for first in first_numbers.iter() {
-        let count = second_numbers.iter().filter(|&x| x == first).count();
-        total += count as u32 * first;
+        total += first * second_map.get(first).unwrap_or(&0);
     }
     Some(total)
 }
