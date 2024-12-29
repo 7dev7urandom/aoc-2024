@@ -1,5 +1,7 @@
 advent_of_code::solution!(11);
 
+// Part one is very inefficient (1.1s)- it would be only 150µs using pt 2 method.
+// We keep it here as a record
 pub fn part_one(input: &str) -> Option<u32> {
     let mut stones = input
         .split(' ')

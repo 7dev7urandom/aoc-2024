@@ -3,9 +3,16 @@ use std::collections::HashSet;
 advent_of_code::solution!(10);
 
 fn parse_input(input: &str) -> Vec<Vec<u8>> {
-    input.lines().map(|l| l.chars().map(|c| c.to_digit(10).unwrap() as u8).collect()).collect::<Vec<_>>()
+    input
+        .lines()
+        .map(|l| l.chars().map(|c| c.to_digit(10).unwrap() as u8).collect())
+        .collect::<Vec<_>>()
 }
-fn breadth_search(grid: &Vec<Vec<u8>>, pos: (usize, usize), height: u8 ) -> (HashSet<(usize, usize)>, u32) {
+fn breadth_search(
+    grid: &Vec<Vec<u8>>,
+    pos: (usize, usize),
+    height: u8,
+) -> (HashSet<(usize, usize)>, u32) {
     let position_height = grid[pos.0][pos.1];
     let mut hashset = HashSet::new();
     let mut sum = 0;
@@ -36,7 +43,6 @@ fn breadth_search(grid: &Vec<Vec<u8>>, pos: (usize, usize), height: u8 ) -> (Has
         let res = breadth_search(grid, (pos.0, pos.1 + 1), position_height + 1);
         hashset.extend(res.0.iter());
         sum += res.1;
-
     }
     (hashset, sum)
 }
